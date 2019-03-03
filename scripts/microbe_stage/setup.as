@@ -375,12 +375,19 @@ void cellOnCellActualContact(GameWorld@ world, ObjectID firstEntity, ObjectID se
     if (firstMicrobeComponent !is null && secondMicrobeComponent !is null)
     {
         // Get microbe sizes here
-        int firstMicrobeComponentOrganelles = firstMicrobeComponent.organelles.length();
-        int secondMicrobeComponentOrganelles = secondMicrobeComponent.organelles.length();
+        int firstMicrobeComponentHexCount = firstMicrobeComponent.totalHexCountCache;
+        int secondMicrobeComponentHexCount = secondMicrobeComponent.totalHexCountCache;
+
+        if(!firstMicrobeComponent.isPlayerMicrobe)
+            firstMicrobeComponentHexCount /= 2;
+            
+        if(!secondMicrobeComponent.isPlayerMicrobe)
+            secondMicrobeComponentHexCount /= 2;
+
         if (firstMicrobeComponent.engulfMode)
         {
-            if(firstMicrobeComponentOrganelles >
-                (ENGULF_HP_RATIO_REQ * secondMicrobeComponentOrganelles) &&
+            if(firstMicrobeComponentHexCount >
+                (ENGULF_HP_RATIO_REQ * secondMicrobeComponentHexCount) &&
                 firstMicrobeComponent.dead == false && secondMicrobeComponent.dead == false)
             {
                 secondMicrobeComponent.isBeingEngulfed = true;
@@ -390,8 +397,8 @@ void cellOnCellActualContact(GameWorld@ world, ObjectID firstEntity, ObjectID se
         }
         if (secondMicrobeComponent.engulfMode)
         {
-            if(secondMicrobeComponentOrganelles >
-                (ENGULF_HP_RATIO_REQ * firstMicrobeComponentOrganelles) &&
+            if(secondMicrobeComponentHexCount >
+                (ENGULF_HP_RATIO_REQ * firstMicrobeComponentHexCount) &&
                 secondMicrobeComponent.dead == false && firstMicrobeComponent.dead == false)
             {
                 firstMicrobeComponent.isBeingEngulfed = true;
@@ -425,16 +432,23 @@ bool beingEngulfed(GameWorld@ world, ObjectID firstEntity, ObjectID secondEntity
     if (firstMicrobeComponent !is null && secondMicrobeComponent !is null)
     {
         // Get microbe sizes here
-        int firstMicrobeComponentOrganelles = firstMicrobeComponent.organelles.length();
-        int secondMicrobeComponentOrganelles = secondMicrobeComponent.organelles.length();
+        int firstMicrobeComponentHexCount = firstMicrobeComponent.totalHexCountCache;
+        int secondMicrobeComponentHexCount = secondMicrobeComponent.totalHexCountCache;
+
+        if(!firstMicrobeComponent.isPlayerMicrobe)
+            firstMicrobeComponentHexCount /= 2;
+            
+        if(!secondMicrobeComponent.isPlayerMicrobe)
+            secondMicrobeComponentHexCount /= 2;
+
         // If either cell is engulfing we need to do things
         //return false;
         //LOG_INFO(""+firstMicrobeComponent.engulfMode);
        // LOG_INFO(""+secondMicrobeComponent.engulfMode);
         if (firstMicrobeComponent.engulfMode)
         {
-            if(firstMicrobeComponentOrganelles >
-                (ENGULF_HP_RATIO_REQ * secondMicrobeComponentOrganelles) &&
+            if(firstMicrobeComponentHexCount >
+                (ENGULF_HP_RATIO_REQ * secondMicrobeComponentHexCount) &&
                 firstMicrobeComponent.dead == false && secondMicrobeComponent.dead == false)
             {
                 secondMicrobeComponent.isBeingEngulfed = true;
@@ -446,8 +460,8 @@ bool beingEngulfed(GameWorld@ world, ObjectID firstEntity, ObjectID secondEntity
         }
         if (secondMicrobeComponent.engulfMode)
         {
-            if(secondMicrobeComponentOrganelles >
-                (ENGULF_HP_RATIO_REQ * firstMicrobeComponentOrganelles) &&
+            if(secondMicrobeComponentHexCount >
+                (ENGULF_HP_RATIO_REQ * firstMicrobeComponentHexCount) &&
                 secondMicrobeComponent.dead == false && firstMicrobeComponent.dead == false)
             {
                 firstMicrobeComponent.isBeingEngulfed = true;
