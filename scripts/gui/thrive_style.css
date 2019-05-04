@@ -195,10 +195,13 @@ video {
 }
 
 .HelpScroll {
+  position: fixed;
+  top: 20;
   display: inline-block;
-  margin-left: 5%;
-  margin-right: 5%;
-  overflow-y: scroll;
+  overflow-y: visible;
+  left: 50%;
+  transform:translateX(-50%);
+  width: 90%;
   height: 600px;
 }
 

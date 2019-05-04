@@ -43,6 +43,22 @@ export function runMicrobeHUDSetup(){
 
     // Close Help Button Clicked
     document.getElementById("closeHelp").addEventListener("click", closeHelp, true);
+    
+    // Scroll Listener
+    document.getElementById("helpText").addEventListener("wheel", function (event){
+    console.log(event.wheelDeltaY)
+        if ((event.deltaY) > 0)
+        {
+            // Scroll Down
+            if (document.getElementById("helpScroll").offsetTop > -200)
+            { document.getElementById("helpScroll").style.top = (((document.getElementById("helpScroll").offsetTop)-20) + "px"); }
+        }else if ((event.deltaY) < 0)
+        {
+            // Scroll Up
+            if (document.getElementById("helpScroll").offsetTop < 20)
+            { document.getElementById("helpScroll").style.top = (((document.getElementById("helpScroll").offsetTop)+20) + "px"); }
+        }
+    });
 
     // Editor button is initially disabled
     document.getElementById("microbeToEditorButton").classList.add("DisabledButton");
