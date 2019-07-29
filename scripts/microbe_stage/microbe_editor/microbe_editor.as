@@ -1,6 +1,7 @@
 #include "microbe_editor_hud.as"
 #include "microbe_operations.as"
 #include "organelle_placement.as"
+#include "setup.as"
 /*
 ////////////////////////////////////////////////////////////////////////////////
 // MicrobeEditor
@@ -256,7 +257,17 @@ class MicrobeEditor{
             (organelle.organelle.prokaryoteChance == 0 && !checkIsNucleusPresent()) && organelle.organelle.chanceToCreate != 0 )
                 return;
 
-        EditorAction@ action = EditorAction(organelle.organelle.mpCost,
+        int organelleCost;
+
+        if (freeBuilding == 0)
+        {
+            organelleCost = 0;
+        } else
+        {
+            organelleCost = organelle.organelle.mpCost;
+        }
+
+        EditorAction@ action = EditorAction(organelleCost,
             // redo
             function(EditorAction@ action, MicrobeEditor@ editor){
 
@@ -760,10 +771,21 @@ class MicrobeEditor{
                 Int2(q, r));
         PlacedOrganelle@ organelle = cast<PlacedOrganelle>(organelleHere);
 
+
+        int removalCost;
+
+        if (freeBuilding == 0)
+        {
+            removalCost = 0;
+        } else
+        {
+            removalCost = ORGANELLE_REMOVE_COST;
+        }
+
         if(organelleHere !is null){
         // DOnt allow deletion of nucleus or the last organelle
             if(!(organelleHere.organelle.name == "nucleus") && getMicrobeSize() > 1) {
-                EditorAction@ action = EditorAction(ORGANELLE_REMOVE_COST,
+                EditorAction@ action = EditorAction(removalCost,
                 // redo We need data about the organelle we removed, and the location so we can "redo" it
                  function(EditorAction@ action, MicrobeEditor@ editor){
                     LOG_INFO("Redo called");

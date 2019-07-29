@@ -466,7 +466,7 @@ void
 }
 
 void
-    ThriveGame::editorButtonClicked()
+    ThriveGame::editorButtonClicked(bool freeBuilding)
 {
     LOG_INFO("Editor button pressed");
 
@@ -556,17 +556,28 @@ void
     //     m_impl->m_MicrobeEditorScripts, "microbe editor scripts not loaded");
 
     LOG_INFO("Calling editor setup script onEditorEntry");
+    if(freeBuilding) {
+        ScriptRunningSetup setup("onFreebuildEditorEntry");
+        auto result = getMicrobeScripts()->ExecuteOnModule<void>(
+            setup, false, m_impl->m_microbeEditor.get());
 
-    ScriptRunningSetup setup("onEditorEntry");
+        if(result.Result != SCRIPT_RUN_RESULT::Success) {
 
-    auto result = getMicrobeScripts()->ExecuteOnModule<void>(
-        setup, false, m_impl->m_microbeEditor.get());
+            LOG_ERROR(
+                "Failed to run editor setup function: " + setup.Entryfunction);
+            return;
+        }
+    } else {
+        ScriptRunningSetup setup("onEditorEntry");
+        auto result = getMicrobeScripts()->ExecuteOnModule<void>(
+            setup, false, m_impl->m_microbeEditor.get());
 
-    if(result.Result != SCRIPT_RUN_RESULT::Success) {
+        if(result.Result != SCRIPT_RUN_RESULT::Success) {
 
-        LOG_ERROR(
-            "Failed to run editor setup function: " + setup.Entryfunction);
-        return;
+            LOG_ERROR(
+                "Failed to run editor setup function: " + setup.Entryfunction);
+            return;
+        }
     }
 }
 
