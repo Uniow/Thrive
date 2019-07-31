@@ -11,6 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 */
 
+bool FreeBuilding = false;
 
 funcdef void EditorActionApply(EditorAction@ action, MicrobeEditor@ editor);
 
@@ -259,7 +260,7 @@ class MicrobeEditor{
 
         int organelleCost;
 
-        if (freeBuilding == 0)
+        if (FreeBuilding)
         {
             organelleCost = 0;
         } else
@@ -774,7 +775,7 @@ class MicrobeEditor{
 
         int removalCost;
 
-        if (freeBuilding == 0)
+        if (FreeBuilding)
         {
             removalCost = 0;
         } else
