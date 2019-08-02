@@ -11,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-bool FreeBuilding = false;
+bool freeBuilding = false;
 
 funcdef void EditorActionApply(EditorAction@ action, MicrobeEditor@ editor);
 
@@ -19,6 +19,10 @@ class EditorAction{
 
     EditorAction(int cost, EditorActionApply@ redo, EditorActionApply@ undo)
     {
+        if (freeBuilding)
+        {
+            cost = 0;
+        }
         this.cost = cost;
         @this.redo = redo;
         @this.undo = undo;
@@ -258,17 +262,8 @@ class MicrobeEditor{
             (organelle.organelle.prokaryoteChance == 0 && !checkIsNucleusPresent()) && organelle.organelle.chanceToCreate != 0 )
                 return;
 
-        int organelleCost;
 
-        if (FreeBuilding)
-        {
-            organelleCost = 0;
-        } else
-        {
-            organelleCost = organelle.organelle.mpCost;
-        }
-
-        EditorAction@ action = EditorAction(organelleCost,
+        EditorAction@ action = EditorAction(organelle.organelle.mpCost,
             // redo
             function(EditorAction@ action, MicrobeEditor@ editor){
 
@@ -773,20 +768,11 @@ class MicrobeEditor{
         PlacedOrganelle@ organelle = cast<PlacedOrganelle>(organelleHere);
 
 
-        int removalCost;
-
-        if (FreeBuilding)
-        {
-            removalCost = 0;
-        } else
-        {
-            removalCost = ORGANELLE_REMOVE_COST;
-        }
 
         if(organelleHere !is null){
         // DOnt allow deletion of nucleus or the last organelle
             if(!(organelleHere.organelle.name == "nucleus") && getMicrobeSize() > 1) {
-                EditorAction@ action = EditorAction(removalCost,
+                EditorAction@ action = EditorAction(ORGANELLE_REMOVE_COST,
                 // redo We need data about the organelle we removed, and the location so we can "redo" it
                  function(EditorAction@ action, MicrobeEditor@ editor){
                     LOG_INFO("Redo called");

@@ -4,13 +4,13 @@
 // Called from ThriveGame when the editor has been entered and it should be setup
 void onEditorEntry(MicrobeEditorWorld@ world)
 {
-    FreeBuilding = false;
+    freeBuilding = false;
     enterEditor(world);
 }
 
 void onFreebuildEditorEntry(MicrobeEditorWorld@ world)
 {
-    FreeBuilding = true;
+    freeBuilding = true;
     enterEditor(world);
 }
 
