@@ -247,14 +247,12 @@ function newGame(){
 }
 
 function enterFreebuildEditor(){
+    Thrive.start();
+    switchToMicrobeHUD();
     if(common.isInEngine()){
-        Thrive.start();
-        switchToMicrobeHUD();
         jams.Pause();
-        $("#toolsMenu").slideUp("fast", () => {
-            $("#mainMenu").slideDown("fast");
-        });
-        document.getElementById("topLevelMenuContainer").style.display = "none";
+        document.getElementById("toolsMenu").style.display = "none";
+        document.getElementById("mainMenu").style.display = "";
         Thrive.freebuildEditorButtonClicked();
     }
 }
