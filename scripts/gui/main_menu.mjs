@@ -247,14 +247,13 @@ function newGame(){
 }
 
 function enterFreebuildEditor(){
-    Thrive.start();
-    switchToMicrobeHUD();
     if(common.isInEngine()){
-        jams.Pause();
-        document.getElementById("toolsMenu").style.display = "none";
-        document.getElementById("mainMenu").style.display = "";
+        Thrive.start();
         Thrive.freebuildEditorButtonClicked();
     }
+    switchToMicrobeHUD();
+    document.getElementById("toolsMenu").style.display = "none";
+    document.getElementById("mainMenu").style.display = "";
 }
 
 function connectToSelectedServerURL(){
