@@ -233,24 +233,6 @@
                         "amount": 100.0
                     }
                 }
-            },
-            "ironBigChunk": {
-                "name": "Big Iron Chunk",
-                "meshes":  [{"mesh": "iron_05", "texture": "iron_01.png"}],
-                "density": 0.00002,
-                "dissolves": true,
-                "radius": 10,
-                "chunkScale": 1.0,
-                "mass": 100,
-                "size": 100,
-                "ventAmount": 20.0,
-                "damages": 0.0,
-                "deleteOnTouch": false,
-                "compounds": {
-                    "iron": {
-                        "amount": 60000.0
-                    }
-                }
             }
         },
         
