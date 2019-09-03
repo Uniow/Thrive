@@ -54,12 +54,46 @@ PatchManager::~PatchManager()
 size_t
     PatchManager::generatePatchMap()
 {
+
+    // Initialize names array 
+    std::string patchNames[4] = {"Pangonian Vents", "Pangonian Bathypelagic", "Pangonian Mesopelagic", "Pangonian Epipelagic"}; 
+
+    std::shared_ptr<Patch> p;
+    for (int i = 0; i < 4; i++)  
+    {    
+        p = std::make_shared<Patch>(patchNames[i]); 
+        p.get()->setBiome(0);
+        p.get()->patchId = 0;
+        p.get()->screenCoordinates.X = 100;
+        p.get()->screenCoordinates.Y = 100;
+        patchMap[i] = p;
+    }
+    
+/*
     // TODO: add proper map generator
     std::shared_ptr<Patch> p = std::make_shared<Patch>("Pangonian vents");
     p.get()->setBiome(0);
     p.get()->patchId = 0;
-
+    p.get()->screenCoordinates.X = 100;
+    p.get()->screenCoordinates.Y = 100;
     patchMap[0] = p;
+
+    p = std::make_shared<Patch>("Trangonian vents");
+    p.get()->setBiome(0);
+    p.get()->patchId = 0;
+    p.get()->screenCoordinates.X = 300;
+    p.get()->screenCoordinates.Y = 100;
+    patchMap[1] = p;*/
+
+    std::cout << "**************" << std::endl;
+    std::cout << "**************" << std::endl;
+    std::cout << "patches created" << std::endl;
+    for (int i = 0; i < 4; i++)  
+    {
+        std::cout << "patchMap[i].name " << patchMap[i].get()->name << std::endl;
+        std::cout << "patchMap[i].coords " << patchMap[i].get()->screenCoordinates << std::endl;
+    }
+
     return 0;
 }
 Patch*

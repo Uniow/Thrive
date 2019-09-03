@@ -15,6 +15,7 @@ class Patch {
 public:
     std::string name;
     size_t patchId;
+    Float2 screenCoordinates; //where on the gui should this patch be displayed?
 
     Patch(std::string name);
     virtual ~Patch();
