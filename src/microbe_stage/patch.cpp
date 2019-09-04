@@ -65,7 +65,7 @@ size_t
         p.get()->setBiome(0);
         p.get()->patchId = 0;
         p.get()->screenCoordinates.X = 100;
-        p.get()->screenCoordinates.Y = 100;
+        p.get()->screenCoordinates.Y = 100 + 100*i;
         patchMap[i] = p;
     }
     
@@ -85,13 +85,13 @@ size_t
     p.get()->screenCoordinates.Y = 100;
     patchMap[1] = p;*/
 
-    std::cout << "**************" << std::endl;
-    std::cout << "**************" << std::endl;
-    std::cout << "patches created" << std::endl;
+    LOG_INFO("**************");
+    LOG_INFO("**************");
+    LOG_INFO("patches created");
     for (int i = 0; i < 4; i++)  
     {
-        std::cout << "patchMap[i].name " << patchMap[i].get()->name << std::endl;
-        std::cout << "patchMap[i].coords " << patchMap[i].get()->screenCoordinates << std::endl;
+        LOG_INFO("patchMap[i].name " + patchMap[i].get()->name)
+        LOG_INFO("patchMap[i].coords " + Convert::ToString(patchMap[i].get()->screenCoordinates));
     }
 
     return 0;
